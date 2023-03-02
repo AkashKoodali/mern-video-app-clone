@@ -6,24 +6,18 @@ import videoRoutes from "./routes/video.routes.js";
 import commentRoutes from "./routes/comments.routes.js";
 import authRoutes from "./routes/auth.routes.js";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 
+import {connect} from './config/connection.js';
 
 const app = express();
 dotenv.config();
+mongoose.set('strictQuery', true);
 
-const connect = () => {
-  mongoose
-    .connect(process.env.MONGO_URL)
-    .then(() => {
-      console.log("Connected to DB");
-    })
-    .catch((err) => {
-      throw err;
-    });
-};
+app.use(cors({ origin: "http://localhost:3000" }));
 
 //middlewares
-app.use(cookieParser())
+app.use(cookieParser());
 app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
