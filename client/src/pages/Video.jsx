@@ -124,7 +124,6 @@ const Video = () => {
   const dispatch = useDispatch();
 
   const path = useLocation().pathname.split("/")[2];
-  console.log(path);
 
   const [channel, setChannel] = useState({});
 
