@@ -12,6 +12,8 @@ import Search from "./pages/Search";
 
 const Container = styled.div`
   display: flex;
+  position: fixed;
+  background-color: ${({ theme }) => theme.bg};
 `;
 
 const Main = styled.div`
@@ -34,7 +36,7 @@ function App() {
           <Main>
             <Navbar />
             <Wrapper>
-            <Routes>
+              <Routes>
                 <Route path="/">
                   <Route index element={<Home type="random" />} />
                   <Route path="trends" element={<Home type="trend" />} />

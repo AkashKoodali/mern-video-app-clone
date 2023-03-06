@@ -82,7 +82,7 @@ const SignIn = () => {
     e.preventDefault();
     dispatch(loginStart());
     try {
-      const res = await axios.post("/auth/signin", {name, password});
+      const res = await axios.post("/api/auth/signin", {name, password});
       dispatch(loginSuccess(res.data));
     } catch (error) {
       dispatch(loginFailure());
@@ -92,7 +92,7 @@ const SignIn = () => {
   const signInWithGoogle = async () => {
     dispatch(loginStart());
     signInWithPopup(auth, provider).then((result) => 
-    axios.post("/auth/google", {
+    axios.post("/api/auth/google", {
       name: result.user.displayName,
       email: result.user.email,
       img: result.user.photoURL

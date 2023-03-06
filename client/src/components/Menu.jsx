@@ -1,14 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import HomeIcon from "@mui/icons-material/Home";
-import SmartDisplayIcon from "@mui/icons-material/SmartDisplay";
+
 import ExploreOutlinedIcon from "@mui/icons-material/ExploreOutlined";
 import SubscriptionsOutlinedIcon from "@mui/icons-material/SubscriptionsOutlined";
-import VideoLibraryOutlinedIcon from "@mui/icons-material/VideoLibraryOutlined";
-import HistoryOutlinedIcon from "@mui/icons-material/HistoryOutlined";
-import LibraryMusicOutlinedIcon from "@mui/icons-material/LibraryMusicOutlined";
-import SportsEsportsOutlinedIcon from "@mui/icons-material/SportsEsportsOutlined";
-import SportsBasketballOutlinedIcon from "@mui/icons-material/SportsBasketballOutlined";
+// import VideoLibraryOutlinedIcon from "@mui/icons-material/VideoLibraryOutlined";
+// import HistoryOutlinedIcon from "@mui/icons-material/HistoryOutlined";
+// import LibraryMusicOutlinedIcon from "@mui/icons-material/LibraryMusicOutlined";
+// import SportsEsportsOutlinedIcon from "@mui/icons-material/SportsEsportsOutlined";
+// import SportsBasketballOutlinedIcon from "@mui/icons-material/SportsBasketballOutlined";
 import MovieOutlinedIcon from "@mui/icons-material/MovieOutlined";
 import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
 import LiveTvOutlinedIcon from "@mui/icons-material/LiveTvOutlined";
@@ -17,37 +17,40 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import FlagOutlinedIcon from "@mui/icons-material/FlagOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import SettingsBrightnessOutlinedIcon from "@mui/icons-material/SettingsBrightnessOutlined";
+import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import { Link } from "react-router-dom";
 
 import { useSelector } from "react-redux";
 
 const Container = styled.div`
-  flex: 1;
+  width: 18rem;
   background-color: ${({ theme }) => theme.bgLighter};
   height: 100vh;
   color: ${({ theme }) => theme.text};
   font-size: 14px;
   position: sticky;
-  top: 0;
+  margin-top: 7px;
+  margin-left: 7px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.25);
   overflow-y: scroll;
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 const Wrapper = styled.div`
-  padding: 18px 26px;
+  padding: 18px 20px;
 `;
-const Logo = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-weight: bold;
-  margin-bottom: 25px;
-`;
+
 
 const Item = styled.div`
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 18px;
   cursor: pointer;
-  padding: 7.5px 0px;
+  padding: 10px 30px;
+  margin: 20px;
+  border-radius: 10px;
   &:hover {
     background-color: ${({ theme }) => theme.soft};
   }
@@ -73,25 +76,25 @@ const Button = styled.button`
   gap: 5px;
 `;
 
-const Title = styled.h2`
-  font-size: 14px;
-  font-weight: 500;
-  color: #aaaaaa;
-  margin-bottom: 20px;
-`;
+// const Title = styled.h2`
+//   font-size: 14px;
+//   font-weight: 500;
+//   color: #aaaaaa;
+//   margin-bottom: 20px;
+// `;
 
 const Menu = ({ darkMode, setDarkMode }) => {
   const currentUser = useSelector((state) => state.currentUser);
 
   return (
     <Container>
-      <Wrapper>
-        <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
-          <Logo>
-            <SmartDisplayIcon style={{ color: "red" }} />
-            VideoTube
-          </Logo>
+       <Link to="/" style={{ textDecoration: "none", color: "inherit"}}>
+          <div style={{display: "flex", alignItems: "center", margin:"20px", gap:5}}>
+            <PlayCircleIcon sx={{color: "red", width:56, height:56}} />
+            <h2>Yoy Tube</h2>
+          </div>
         </Link>
+      <Wrapper>
 
         <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
           <Item>
@@ -117,18 +120,18 @@ const Menu = ({ darkMode, setDarkMode }) => {
           </Item>
         </Link>
 
-        <Hr />
+        {/* <Hr /> */}
 
-        <Item>
+        {/* <Item>
           <VideoLibraryOutlinedIcon />
           Library
         </Item>
         <Item>
           <HistoryOutlinedIcon />
           History
-        </Item>
+        </Item> */}
 
-        <Hr />
+        <Hr/>
 
         {
           currentUser &&
@@ -142,11 +145,11 @@ const Menu = ({ darkMode, setDarkMode }) => {
                 </Button>
               </Link>
             </Login>
-            <Hr />{" "}
+            <Hr/>{" "}
           </>
         }
 
-        <Title>BEST OF LAMATUBE</Title>
+        {/* <Title>BEST OF LAMATUBE</Title>
         <Item>
           <LibraryMusicOutlinedIcon />
           Music
@@ -158,7 +161,7 @@ const Menu = ({ darkMode, setDarkMode }) => {
         <Item>
           <SportsEsportsOutlinedIcon />
           Gaming
-        </Item>
+        </Item> */}
         <Item>
           <MovieOutlinedIcon />
           Movies
@@ -171,7 +174,7 @@ const Menu = ({ darkMode, setDarkMode }) => {
           <LiveTvOutlinedIcon />
           Live
         </Item>
-        <Hr />
+        <Hr/>
         <Item>
           <SettingsOutlinedIcon />
           Settings

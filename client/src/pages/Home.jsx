@@ -12,7 +12,7 @@ const Container = styled.div`
   flex-wrap: wrap;
 `;
 
-const Home = ({ type }) => {
+const Home = ({type}) => {
   const [videos, setVideos] = useState([]);
 
   const dispatch = useDispatch();
@@ -20,7 +20,7 @@ const Home = ({ type }) => {
   useEffect(() => {
     dispatch(fetchStart());
     const fetchVideos = async () => {
-      const res = await axios.get(`/videos/${type}`);
+      const res = await axios.get(`/api/videos/${type}`);
       setVideos(res.data);
       dispatch(fetchSuccess(res.data))
     };
@@ -30,7 +30,7 @@ const Home = ({ type }) => {
   return (
     <Container>
       {videos.map((video) => (
-        <Card key={video._id} video={video} />
+        <Card key={video._id} video={video}/>
       ))}
     </Container>
   );

@@ -10,19 +10,28 @@ const Container = styled.div`
   cursor: pointer;
   display: ${(props) => props.type === "sm" && "flex"};
   gap: 10px;
+  background-color: ${({ theme }) => theme.bgLighter};
+  padding-top: 15px;
+  padding: 15px;
+  
+  border-radius: 20px;
+  /* border: 1px solid rgb(255,48,48); */
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.25);
 `;
 
 const Image = styled.img`
   width: 100%;
   height: ${(props) => (props.type === "sm" ? "120px" : "202px")};
   background-color: #999;
+  border-radius: 20px;
   flex: 1;
 `;
 
 const Details = styled.div`
   display: flex;
-  margin-top: ${(props) => props.type !== "sm" && "16px"};
+  margin-top: ${(props) => props.type !== "sm" && "5px"};
   gap: 12px;
+  padding: 5px;
   flex: 1;
 `;
 
@@ -58,7 +67,7 @@ const Card = ({ type, video }) => {
 
   useEffect(() => {
     const fetchChannel = async () => {
-      const res = await axios.get(`/users/find/${video.userId}`);
+      const res = await axios.get(`/api/users/find/${video.userId}`);
       setChannel(res.data);
     };
     fetchChannel();
