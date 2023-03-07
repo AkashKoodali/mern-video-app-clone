@@ -1,6 +1,6 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { userRequest } from "../config";
 
 const Container = styled.div`
   display: flex;
@@ -42,7 +42,7 @@ const Comment = ({ comment }) => {
   useEffect(() => {
     const fetchComment = async () => {
       try {
-        const res = await axios.get(`/api/users/find/${comment.userId}`);
+        const res = await userRequest.get(`/api/users/find/${comment.userId}`);
         setChannel(res.data);
       } catch (err) {}
     };

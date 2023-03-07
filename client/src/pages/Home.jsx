@@ -3,10 +3,9 @@ import styled from "styled-components";
 import Card from "../components/Card";
 import { fetchSuccess, fetchStart } from "../redux/videoSlice.js";
 
-import axios from "axios";
 import { useDispatch } from "react-redux";
 import LoadingSpinner from "../utils/LoadingSpinner";
-import { API_URL } from "../config";
+import { publicRequest } from "../config";
 
 const Container = styled.div`
   display: grid;
@@ -27,7 +26,7 @@ const Home = ({type}) => {
     dispatch(fetchStart());
     const fetchVideos = async () => {
       setLoading(true);
-      const res = await axios.get(`/api/videos/${type}`);
+      const res = await publicRequest.get(`/api/videos/${type}`);
       setVideos(res.data);
       dispatch(fetchSuccess(res.data));
       setLoading(false);

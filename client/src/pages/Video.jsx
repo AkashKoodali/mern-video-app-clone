@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { format } from "timeago.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import axios from "axios";
 
 // --Icons
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
@@ -18,6 +17,7 @@ import Comments from "../components/Comments";
 import { fetchSuccess, like, dislike,  } from "../redux/videoSlice";
 import { subscription } from "../redux/userSlice";
 import Recommendation from "../components/Recommendation";
+import { publicRequest, userRequest } from "../config";
 
 const Container = styled.div`
   display: flex;
@@ -131,9 +131,9 @@ const Video = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const videoRes = await axios.get(`/api/videos/find/${path}`);
-        await axios.put(`/api/videos/view/${path}`)
-        const channelRes = await axios.get(
+        const videoRes = await publicRequest.get(`/api/videos/find/${path}`);
+        await publicRequest.put(`/api/videos/view/${path}`)
+        const channelRes = await publicRequest.get(
           `/api/users/find/${videoRes.data.userId}`
         );
         setChannel(channelRes.data);
@@ -144,18 +144,18 @@ const Video = () => {
   }, [path, dispatch]);
 
   const handleLike = async () => {
-    // await axios.put(`/users/like/${currentVideo._id}`);
+     await userRequest.put(`/users/like/${currentVideo._id}`);
     dispatch(like(currentUser._id));
   };
   const handleDislike = async () => {
-    await axios.put(`/api/users/dislike/${currentVideo._id}`);
+    await userRequest.put(`/api/users/dislike/${currentVideo._id}`);
     dispatch(dislike(currentUser._id));
   };
 
   const handleSub = async () => {
     currentUser.subscribedUsers.includes(channel._id)
-      ? await axios.put(`/api/users/unsub/${channel._id}`)
-      : await axios.put(`/api/users/sub/${channel._id}`);
+      ? await userRequest.put(`/api/users/unsub/${channel._id}`)
+      : await userRequest.put(`/api/users/sub/${channel._id}`);
     dispatch(subscription(channel._id));
   };
 
