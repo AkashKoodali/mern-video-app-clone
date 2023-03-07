@@ -16,6 +16,7 @@ const Container = styled.div`
   box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.25);
   margin: 7px;
   border-radius: 10px;
+  z-index: 10;
 `;
 
 const Wrapper = styled.div`
@@ -51,14 +52,15 @@ const Input = styled.input`
 
 const Button = styled.button`
   padding: 5px 15px;
-  background-color: transparent;
-  border: 1px solid #3ea6ff;
-  color: #3ea6ff;
+  background-color: #FF3030;
+  border: 1px solid #FF3030;
+  color: #212B36;
   border-radius: 3px;
   font-weight: 500;
   cursor: pointer;
   display: flex;
   align-items: center;
+  border-radius: 9px;
   gap: 5px;
 `;
 
@@ -84,11 +86,11 @@ const Navbar = () => {
   const { currentUser } = useSelector((state) => state.user);
   return (
     <>
-      <Container>
+      <Container style={{backgroundColor: open && "transparent"}}>
         <Wrapper>
           <Search>
           <div style={{display: "flex" , alignItems: "center", gap:"10px",marginLeft:"12px"}}>
-          <SearchOutlinedIcon />
+          <SearchOutlinedIcon style={{color: "gray"}} />
           
             <Input
               placeholder="Search"
@@ -119,7 +121,8 @@ const Navbar = () => {
             <Link to="signin" style={{ textDecoration: "none" }}>
               <Button>
                 <AccountCircleOutlinedIcon />
-                SIGN IN
+                <span style={{color:"white"}}>  Sign In</span>
+              
               </Button>
             </Link>
           )}

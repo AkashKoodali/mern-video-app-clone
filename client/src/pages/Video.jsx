@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import * as timeago from "timeago.js";
+import { format } from "timeago.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
@@ -62,7 +62,7 @@ const Button = styled.div`
 
 const Hr = styled.hr`
   margin: 15px 0px;
-  border: 0.5px solid ${({ theme }) => theme.soft};
+  border: 0.3px solid gray;
 `;
 
 const Channel = styled.div`
@@ -132,6 +132,7 @@ const Video = () => {
     const fetchData = async () => {
       try {
         const videoRes = await axios.get(`/api/videos/find/${path}`);
+        await axios.put(`/api/videos/view/${path}`)
         const channelRes = await axios.get(
           `/api/users/find/${videoRes.data.userId}`
         );
@@ -143,7 +144,7 @@ const Video = () => {
   }, [path, dispatch]);
 
   const handleLike = async () => {
-    await axios.put(`/users/like/${currentVideo._id}`);
+    // await axios.put(`/users/like/${currentVideo._id}`);
     dispatch(like(currentUser._id));
   };
   const handleDislike = async () => {
@@ -161,6 +162,7 @@ const Video = () => {
   //TODO: DELETE VIDEO FUNCTIONALITY
 
   return (
+    
     <Container>
       <Content>
         <VideoWrapper>
@@ -169,7 +171,7 @@ const Video = () => {
         <Title>{currentVideo.title}</Title>
         <Details>
           <Info>
-            {currentVideo.views} views • {timeago.format(currentVideo.createdAt)}
+            {currentVideo.views} views • {format(currentVideo.createdAt)}
           </Info>
           <Buttons>
             <Button onClick={handleLike}>

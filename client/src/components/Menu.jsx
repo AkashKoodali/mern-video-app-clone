@@ -4,6 +4,7 @@ import HomeIcon from "@mui/icons-material/Home";
 
 import ExploreOutlinedIcon from "@mui/icons-material/ExploreOutlined";
 import SubscriptionsOutlinedIcon from "@mui/icons-material/SubscriptionsOutlined";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 // import VideoLibraryOutlinedIcon from "@mui/icons-material/VideoLibraryOutlined";
 // import HistoryOutlinedIcon from "@mui/icons-material/HistoryOutlined";
 // import LibraryMusicOutlinedIcon from "@mui/icons-material/LibraryMusicOutlined";
@@ -18,17 +19,19 @@ import FlagOutlinedIcon from "@mui/icons-material/FlagOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import SettingsBrightnessOutlinedIcon from "@mui/icons-material/SettingsBrightnessOutlined";
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../redux/userSlice";
 
 const Container = styled.div`
-  width: 18rem;
+  width: 14rem;
   background-color: ${({ theme }) => theme.bgLighter};
   height: 100vh;
   color: ${({ theme }) => theme.text};
   font-size: 14px;
   position: sticky;
+  top: 0;
   margin-top: 7px;
   margin-left: 7px;
   border-radius: 10px;
@@ -39,16 +42,17 @@ const Container = styled.div`
   }
 `;
 const Wrapper = styled.div`
-  padding: 18px 20px;
+  padding: 5px 20px;
+  gap: 20px;
 `;
 
 
 const Item = styled.div`
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 10px;
   cursor: pointer;
-  padding: 10px 30px;
+  padding: 10px 15px;
   margin: 20px;
   border-radius: 10px;
   &:hover {
@@ -58,23 +62,23 @@ const Item = styled.div`
 
 const Hr = styled.hr`
   margin: 15px 0px;
-  border: 0.5px solid ${({ theme }) => theme.soft};
+  border: 0.3px solid gray;
 `;
 
-const Login = styled.div``;
-const Button = styled.button`
-  padding: 5px 15px;
-  background-color: transparent;
-  border: 1px solid #3ea6ff;
-  color: #3ea6ff;
-  border-radius: 3px;
-  font-weight: 500;
-  margin-top: 10px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-`;
+// const Login = styled.div``;
+// const Button = styled.button`
+//   padding: 5px 15px;
+//   background-color: transparent;
+//   border: 1px solid #3ea6ff;
+//   color: #3ea6ff;
+//   border-radius: 3px;
+//   font-weight: 500;
+//   margin-top: 10px;
+//   cursor: pointer;
+//   display: flex;
+//   align-items: center;
+//   gap: 5px;
+// `;
 
 // const Title = styled.h2`
 //   font-size: 14px;
@@ -84,14 +88,29 @@ const Button = styled.button`
 // `;
 
 const Menu = ({ darkMode, setDarkMode }) => {
-  const currentUser = useSelector((state) => state.currentUser);
+  const { currentUser } = useSelector((state) => state.user);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    try {
+      dispatch(logout());
+      localStorage.clear();
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 
   return (
     <Container>
-       <Link to="/" style={{ textDecoration: "none", color: "inherit"}}>
-          <div style={{display: "flex", alignItems: "center", margin:"20px", gap:5}}>
-            <PlayCircleIcon sx={{color: "red", width:56, height:56}} />
-            <h2>Yoy Tube</h2>
+        <Link to="/" style={{ textDecoration: "none", color: "inherit"}}>
+          <div style={{display: "flex", alignItems: "center",marginTop:"20px",marginLeft:"20px", gap:5}}>
+        <PlayCircleIcon sx={{color: "red", width:56, height:56}} />
+          <h2>Yoy Tube</h2>
           </div>
         </Link>
       <Wrapper>
@@ -133,35 +152,7 @@ const Menu = ({ darkMode, setDarkMode }) => {
 
         <Hr/>
 
-        {
-          currentUser &&
-          <>
-            <Login>
-              Sign in to like videos, comment, and subscribe.
-              <Link to="signin" style={{ textDecoration: "none" }}>
-                <Button>
-                  <AccountCircleOutlinedIcon />
-                  SIGN IN
-                </Button>
-              </Link>
-            </Login>
-            <Hr/>{" "}
-          </>
-        }
-
-        {/* <Title>BEST OF LAMATUBE</Title>
-        <Item>
-          <LibraryMusicOutlinedIcon />
-          Music
-        </Item>
-        <Item>
-          <SportsBasketballOutlinedIcon />
-          Sports
-        </Item>
-        <Item>
-          <SportsEsportsOutlinedIcon />
-          Gaming
-        </Item> */}
+       
         <Item>
           <MovieOutlinedIcon />
           Movies
@@ -175,6 +166,28 @@ const Menu = ({ darkMode, setDarkMode }) => {
           Live
         </Item>
         <Hr/>
+
+        {currentUser ? (
+              <>
+              <Item onClick={handleLogout}>
+                  <ExitToAppIcon />
+                  Log Out
+                
+                </Item>
+              </>
+            ) : (
+              <>
+                
+                  <div style={{margin: '20px'}}>Sign in to like videos, comment, and subscribe.</div>
+                  <Item>
+                      <AccountCircleOutlinedIcon />
+                      SIGN IN
+                  </Item>
+              
+              </>
+            )}
+
+    <Hr/>
         <Item>
           <SettingsOutlinedIcon />
           Settings

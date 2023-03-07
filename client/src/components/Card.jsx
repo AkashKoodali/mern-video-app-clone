@@ -2,13 +2,15 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import * as timeago from 'timeago.js';
+import { format } from "timeago.js";
 
 const Container = styled.div`
-  width: ${(props) => props.type !== "sm" && "360px"};
-  margin-bottom: ${(props) => (props.type === "sm" ? "10px" : "45px")};
+ width: ${(props) => props.type !== "sm" && "300px"};
+ height:${(props) => props.type !== "sm" && "250px"}; ;
+  margin-bottom: ${(props)=>props.type === "sm" ? "10px" : "30px"};
   cursor: pointer;
-  display: ${(props) => props.type === "sm" && "flex"};
+  display :  ${(props) => props.type === "sm" && "flex"};
+
   gap: 10px;
   background-color: ${({ theme }) => theme.bgLighter};
   padding-top: 15px;
@@ -21,7 +23,7 @@ const Container = styled.div`
 
 const Image = styled.img`
   width: 100%;
-  height: ${(props) => (props.type === "sm" ? "120px" : "202px")};
+  height: ${(props) => (props.type === "sm" ? "100px" : "150px")};
   background-color: #999;
   border-radius: 20px;
   flex: 1;
@@ -29,9 +31,9 @@ const Image = styled.img`
 
 const Details = styled.div`
   display: flex;
-  margin-top: ${(props) => props.type !== "sm" && "5px"};
-  gap: 12px;
-  padding: 5px;
+  margin-top: ${(props) => props.type !== "sm" && "4px"};
+  gap: 10px;
+  padding: 4px;
   flex: 1;
 `;
 
@@ -88,7 +90,7 @@ const Card = ({ type, video }) => {
           <Texts>
             <Title>{video.title}</Title>
             <ChannelName>{channel.name}</ChannelName>
-            <Info>{video.views} views • {timeago.format(video.createdAt)}</Info>
+            <Info>{video.views} views • {format(video.createdAt)}</Info>
           </Texts>
         </Details>
       </Container>

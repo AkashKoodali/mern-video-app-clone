@@ -7,6 +7,7 @@ import { loginFailure, loginStart, loginSuccess } from "../redux/userSlice";
 // --firebase
 import { signInWithPopup } from 'firebase/auth';
 import {auth, provider} from '../firebase.js'
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -22,7 +23,7 @@ const Wrapper = styled.div`
   align-items: center;
   flex-direction: column;
   background-color: ${({ theme }) => theme.bgLighter};
-  border: 1px solid ${({ theme }) => theme.soft};
+  /* border: 1px solid ${({ theme }) => theme.soft}; */
   padding: 20px 50px;
   gap: 10px;
 `;
@@ -77,6 +78,7 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
   
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -84,6 +86,7 @@ const SignIn = () => {
     try {
       const res = await axios.post("/api/auth/signin", {name, password});
       dispatch(loginSuccess(res.data));
+      navigate("/");
     } catch (error) {
       dispatch(loginFailure());
     }
@@ -108,7 +111,7 @@ const SignIn = () => {
     <Container>
       <Wrapper>
         <Title>Sign in</Title>
-        <SubTitle>to continue to LamaTube</SubTitle>
+        <SubTitle>to continue to Yoy Tube</SubTitle>
         <Input placeholder="username" onChange={(e) => setName(e.target.value)} />
         <Input type="password" placeholder="password" onChange={(e)=> setPassword(e.target.value)} />
         <Button onClick={handleLogin}>Sign in</Button>

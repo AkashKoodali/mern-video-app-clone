@@ -12,8 +12,9 @@ import Search from "./pages/Search";
 
 const Container = styled.div`
   display: flex;
-  position: fixed;
+  position: absolute;
   background-color: ${({ theme }) => theme.bg};
+  width: 100%;
 `;
 
 const Main = styled.div`
@@ -21,7 +22,7 @@ const Main = styled.div`
   background-color: ${({ theme }) => theme.bg};
 `;
 const Wrapper = styled.div`
-  padding: 22px 96px;
+  padding: 22px 50px;
 `;
 
 function App() {

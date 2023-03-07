@@ -5,30 +5,39 @@ import { fetchSuccess, fetchStart } from "../redux/videoSlice.js";
 
 import axios from "axios";
 import { useDispatch } from "react-redux";
+import LoadingSpinner from "../utils/LoadingSpinner";
+import { API_URL } from "../config";
 
 const Container = styled.div`
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  grid-gap: 2rem;
+  margin: 0;
+  align-items: center;
+  width: auto;
 `;
 
 const Home = ({type}) => {
   const [videos, setVideos] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchStart());
     const fetchVideos = async () => {
+      setLoading(true);
       const res = await axios.get(`/api/videos/${type}`);
       setVideos(res.data);
-      dispatch(fetchSuccess(res.data))
+      dispatch(fetchSuccess(res.data));
+      setLoading(false);
     };
     fetchVideos();
   }, [type, dispatch]);
 
   return (
     <Container>
+      {loading && <LoadingSpinner />}
       {videos.map((video) => (
         <Card key={video._id} video={video}/>
       ))}

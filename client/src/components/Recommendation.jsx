@@ -5,7 +5,6 @@ import Card from "./Card";
 
 const Container = styled.div`
   
-
 `;
 
 const Recommendation = ({ tags }) => {
